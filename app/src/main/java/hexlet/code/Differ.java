@@ -12,7 +12,7 @@ import java.util.TreeSet;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class Differ {
+public final class Differ {
 
     private Differ() {
     }

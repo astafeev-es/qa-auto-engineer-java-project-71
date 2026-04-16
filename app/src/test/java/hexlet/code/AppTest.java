@@ -50,9 +50,9 @@ public class AppTest {
     public void testApp() throws Exception {
         String filePath1 = getFixturePath("file1.json").toString();
         String filePath2 = getFixturePath("file2.json").toString();
-        
+
         int exitCode = new CommandLine(new App()).execute(filePath1, filePath2);
-        
+
         assertEquals(0, exitCode);
         String expected = readFixture("expected.txt");
         assertTrue(outputStreamCaptor.toString().trim().contains(expected));
