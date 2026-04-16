@@ -47,6 +47,44 @@ public class AppTest {
     }
 
     @Test
+    public void testGenerateYaml() throws Exception {
+        String filePath1 = getFixturePath("file1.yml").toString();
+        String filePath2 = getFixturePath("file2.yml").toString();
+        String expected = readFixture("expected.txt");
+        String actual = Differ.generate(filePath1, filePath2);
+        assertEquals(expected, actual.trim());
+    }
+
+    @Test
+    public void testGenerateYamlLong() throws Exception {
+        String filePath1 = getFixturePath("file1.yaml").toString();
+        String filePath2 = getFixturePath("file2.yaml").toString();
+        String expected = readFixture("expected.txt");
+        String actual = Differ.generate(filePath1, filePath2);
+        assertEquals(expected, actual.trim());
+    }
+
+    @Test
+    public void testParserException() {
+        try {
+            Parser.parse("content", "unknown");
+        } catch (Exception e) {
+            assertEquals("Unknown format: unknown", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testNoExtension() {
+        String filePath1 = getFixturePath("file1").toString();
+        String filePath2 = getFixturePath("file2").toString();
+        try {
+            Differ.generate(filePath1, filePath2);
+        } catch (Exception e) {
+            assertEquals("Unknown format: ", e.getMessage());
+        }
+    }
+
+    @Test
     public void testApp() throws Exception {
         String filePath1 = getFixturePath("file1.json").toString();
         String filePath2 = getFixturePath("file2.json").toString();

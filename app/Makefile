@@ -1,13 +1,13 @@
 .PHONY: build
 
 build:
-	./gradlew clean build
+	./gradlew clean build installDist
 
 install:
 	./gradlew clean installDist
 
 run-dist:
-	./build/install/app/bin/app
+	./build/install/app/bin/app $(ARGS)
 
 test:
 	./gradlew test
