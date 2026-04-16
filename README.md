@@ -12,3 +12,12 @@
 
 ### First Demo
 [![asciicast](https://asciinema.org/a/271y3LW10Sp4Hca6.svg)](https://asciinema.org/a/271y3LW10Sp4Hca6)
+
+### Second Demo
+[![asciicast](https://asciinema.org/a/RI960ANinmQkpOGR.svg)](https://asciinema.org/a/RI960ANinmQkpOGR)
+
+### Third Demo
+[![asciicast](https://asciinema.org/a/WoHhhpBEkKSjNu2V.svg)](https://asciinema.org/a/WoHhhpBEkKSjNu2V)
+
+### Fourth Demo
+[![asciicast](https://asciinema.org/a/ugJt7HZY0ZkAGlc0.svg)](https://asciinema.org/a/ugJt7HZY0ZkAGlc0)

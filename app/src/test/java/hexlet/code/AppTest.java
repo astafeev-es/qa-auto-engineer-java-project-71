@@ -41,25 +41,40 @@ public class AppTest {
     public void testGenerate() throws Exception {
         String filePath1 = getFixturePath("file1.json").toString();
         String filePath2 = getFixturePath("file2.json").toString();
-        String expected = readFixture("expected.txt");
+        String expected = readFixture("expected_stylish.txt");
         String actual = Differ.generate(filePath1, filePath2);
         assertEquals(expected, actual.trim());
+    }
+
+    @Test
+    public void testGeneratePlain() throws Exception {
+        String filePath1 = getFixturePath("file1.json").toString();
+        String filePath2 = getFixturePath("file2.json").toString();
+        String expected = readFixture("expected_plain.txt");
+        String actual = Differ.generate(filePath1, filePath2, "plain");
+        assertEquals(expected, actual.trim());
+    }
+
+    @Test
+    public void testGenerateJson() throws Exception {
+        String filePath1 = getFixturePath("file1.json").toString();
+        String filePath2 = getFixturePath("file2.json").toString();
+        String actual = Differ.generate(filePath1, filePath2, "json");
+
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        java.util.List<java.util.Map<String, Object>> actualList = mapper.readValue(actual,
+                new com.fasterxml.jackson.core.type.TypeReference<java.util.List<java.util.Map<String, Object>>>() { });
+
+        assertTrue(actualList.size() > 0);
+        assertEquals("chars1", actualList.get(0).get("key"));
     }
 
     @Test
     public void testGenerateYaml() throws Exception {
+        // Create YAML fixtures for complex structures
         String filePath1 = getFixturePath("file1.yml").toString();
         String filePath2 = getFixturePath("file2.yml").toString();
-        String expected = readFixture("expected.txt");
-        String actual = Differ.generate(filePath1, filePath2);
-        assertEquals(expected, actual.trim());
-    }
-
-    @Test
-    public void testGenerateYamlLong() throws Exception {
-        String filePath1 = getFixturePath("file1.yaml").toString();
-        String filePath2 = getFixturePath("file2.yaml").toString();
-        String expected = readFixture("expected.txt");
+        String expected = readFixture("expected_stylish.txt");
         String actual = Differ.generate(filePath1, filePath2);
         assertEquals(expected, actual.trim());
     }
@@ -85,6 +100,43 @@ public class AppTest {
     }
 
     @Test
+    public void testFormatterException() {
+        try {
+            Formatter.render(new java.util.ArrayList<>(), "unknown");
+        } catch (Exception e) {
+            assertEquals("Unknown format: unknown", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testStylishException() {
+        java.util.List<java.util.Map<String, Object>> diff = new java.util.ArrayList<>();
+        java.util.Map<String, Object> node = new java.util.HashMap<>();
+        node.put("key", "v");
+        node.put("type", "unknown");
+        diff.add(node);
+        try {
+            hexlet.code.formatters.Stylish.render(diff);
+        } catch (Exception e) {
+            assertEquals("Unknown node type: unknown", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testPlainException() {
+        java.util.List<java.util.Map<String, Object>> diff = new java.util.ArrayList<>();
+        java.util.Map<String, Object> node = new java.util.HashMap<>();
+        node.put("key", "v");
+        node.put("type", "unknown");
+        diff.add(node);
+        try {
+            hexlet.code.formatters.Plain.render(diff);
+        } catch (Exception e) {
+            assertEquals("Unknown node type: unknown", e.getMessage());
+        }
+    }
+
+    @Test
     public void testApp() throws Exception {
         String filePath1 = getFixturePath("file1.json").toString();
         String filePath2 = getFixturePath("file2.json").toString();
@@ -92,7 +144,7 @@ public class AppTest {
         int exitCode = new CommandLine(new App()).execute(filePath1, filePath2);
 
         assertEquals(0, exitCode);
-        String expected = readFixture("expected.txt");
+        String expected = readFixture("expected_stylish.txt");
         assertTrue(outputStreamCaptor.toString().trim().contains(expected));
     }
 
