@@ -13,7 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import picocli.CommandLine;
 
-public class AppTest {
+public final class AppTest {
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
