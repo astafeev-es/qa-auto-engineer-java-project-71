@@ -5,6 +5,8 @@ plugins {
     id("application")
     id("com.github.ben-manes.versions") version "0.53.0"
     id("checkstyle")
+    id("org.sonarqube") version "7.2.3.7755"
+    id("jacoco")
 }
 
 group = "hexlet.code"
@@ -28,6 +30,14 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(true)
+    }
 }
 
 tasks.withType<DependencyUpdatesTask> {
@@ -50,4 +60,11 @@ tasks.getByName("run", JavaExec::class) {
 checkstyle {
     toolVersion = "13.4.0"
     configFile = rootProject.file("config/checkstyle/checkstyle.xml")
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "astafeev-es_qa-auto-engineer-java-project-71")
+        property("sonar.organization", "astafeev-es")
+    }
 }

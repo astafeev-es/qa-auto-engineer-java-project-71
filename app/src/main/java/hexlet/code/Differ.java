@@ -14,6 +14,9 @@ import java.util.StringJoiner;
 
 public class Differ {
 
+    private Differ() {
+    }
+
     public static String generate(String filePath1, String filePath2) throws Exception {
         Path path1 = Paths.get(filePath1).toAbsolutePath().normalize();
         Path path2 = Paths.get(filePath2).toAbsolutePath().normalize();
