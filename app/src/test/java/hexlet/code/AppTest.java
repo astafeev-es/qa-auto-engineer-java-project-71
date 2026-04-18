@@ -34,7 +34,7 @@ public final class AppTest {
 
     private static String readFixture(String fileName) throws Exception {
         Path filePath = getFixturePath(fileName);
-        return Files.readString(filePath).trim();
+        return Files.readString(filePath);
     }
 
     @Test
@@ -43,7 +43,7 @@ public final class AppTest {
         String filePath2 = getFixturePath("file2.json").toString();
         String expected = readFixture("expected_stylish.txt");
         String actual = Differ.generate(filePath1, filePath2);
-        assertEquals(expected, actual.trim());
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -52,7 +52,7 @@ public final class AppTest {
         String filePath2 = getFixturePath("file2.json").toString();
         String expected = readFixture("expected_plain.txt");
         String actual = Differ.generate(filePath1, filePath2, "plain");
-        assertEquals(expected, actual.trim());
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -76,7 +76,7 @@ public final class AppTest {
         String filePath2 = getFixturePath("file2.yml").toString();
         String expected = readFixture("expected_stylish.txt");
         String actual = Differ.generate(filePath1, filePath2);
-        assertEquals(expected, actual.trim());
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -84,7 +84,7 @@ public final class AppTest {
         try {
             Parser.parse("content", "unknown");
         } catch (Exception e) {
-            assertEquals("Unknown format: unknown", e.getMessage());
+            assertEquals("Unknown format: 'unknown'", e.getMessage());
         }
     }
 
@@ -95,7 +95,7 @@ public final class AppTest {
         try {
             Differ.generate(filePath1, filePath2);
         } catch (Exception e) {
-            assertEquals("Unknown format: ", e.getMessage());
+            assertEquals("Unknown format: ''", e.getMessage());
         }
     }
 
@@ -104,7 +104,7 @@ public final class AppTest {
         try {
             Formatter.render(new java.util.ArrayList<>(), "unknown");
         } catch (Exception e) {
-            assertEquals("Unknown format: unknown", e.getMessage());
+            assertEquals("Unknown format: 'unknown'", e.getMessage());
         }
     }
 
@@ -118,7 +118,7 @@ public final class AppTest {
         try {
             hexlet.code.formatters.Stylish.render(diff);
         } catch (Exception e) {
-            assertEquals("Unknown node type: unknown", e.getMessage());
+            assertEquals("Unknown node type: 'unknown'", e.getMessage());
         }
     }
 
@@ -132,7 +132,7 @@ public final class AppTest {
         try {
             hexlet.code.formatters.Plain.render(diff);
         } catch (Exception e) {
-            assertEquals("Unknown node type: unknown", e.getMessage());
+            assertEquals("Unknown node type: 'unknown'", e.getMessage());
         }
     }
 
@@ -145,7 +145,7 @@ public final class AppTest {
 
         assertEquals(0, exitCode);
         String expected = readFixture("expected_stylish.txt");
-        assertTrue(outputStreamCaptor.toString().trim().contains(expected));
+        assertTrue(outputStreamCaptor.toString().contains(expected));
     }
 
     @Test

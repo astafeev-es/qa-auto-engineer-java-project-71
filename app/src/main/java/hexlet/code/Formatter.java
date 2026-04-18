@@ -18,7 +18,7 @@ public final class Formatter {
             case "json":
                 return Json.render(diff);
             default:
-                throw new RuntimeException("Unknown format: " + format);
+                throw new IllegalArgumentException("Unknown format: '" + format + "'");
         }
     }
 }

@@ -22,6 +22,6 @@ public final class Parser {
         } else if (format.equalsIgnoreCase("yml") || format.equalsIgnoreCase("yaml")) {
             return new YAMLMapper();
         }
-        throw new IllegalArgumentException("Unknown format: " + format);
+        throw new IllegalArgumentException("Unknown format: '" + format + "'");
     }
 }

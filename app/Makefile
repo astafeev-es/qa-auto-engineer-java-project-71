@@ -1,7 +1,7 @@
-.PHONY: build
+.PHONY: build install run-dist test report lint check
 
 build:
-	./gradlew clean build installDist
+	./gradlew build installDist
 
 install:
 	./gradlew clean installDist

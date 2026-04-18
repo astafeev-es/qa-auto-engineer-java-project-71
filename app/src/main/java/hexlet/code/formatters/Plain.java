@@ -30,7 +30,7 @@ public final class Plain {
                 case "unchanged":
                     break;
                 default:
-                    throw new RuntimeException("Unknown node type: " + type);
+                    throw new IllegalArgumentException("Unknown node type: '" + type + "'");
             }
         }
 

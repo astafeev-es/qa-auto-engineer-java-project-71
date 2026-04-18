@@ -29,7 +29,7 @@ public final class Stylish {
                     sj.add("  + " + key + ": " + node.get("newValue"));
                     break;
                 default:
-                    throw new RuntimeException("Unknown node type: " + type);
+                    throw new IllegalArgumentException("Unknown node type: '" + type + "'");
             }
         }
 
